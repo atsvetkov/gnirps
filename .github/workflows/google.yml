@@ -18,10 +18,10 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: cluster-1    # TODO: update to cluster name
-  GKE_ZONE: us-central1-c   # TODO: update to cluster zone
-  DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
-  IMAGE: static-site
+  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
+  GKE_ZONE: europe-west6
+  DEPLOYMENT_NAME: gnirps
+  IMAGE: gnirps
 
 jobs:
   setup-build-publish-deploy:
@@ -32,10 +32,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    
-    - name: Build JAR
-      run: |-
-        ./gradlew build
 
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@v0.2.0
@@ -54,6 +50,12 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
         credentials: ${{ secrets.GKE_SA_KEY }}
+
+    # Build JAR
+    - name: Build JAR
+      run: |
+        chmod +x ./gradlew
+        ./gradlew build
 
     # Build the Docker image
     - name: Build
