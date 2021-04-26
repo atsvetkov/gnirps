@@ -16,6 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gnirps
+spec:
   replicas: 1
   selector:
     matchLabels:
