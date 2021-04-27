@@ -17,5 +17,5 @@ fun main(args: Array<String>) {
 @RequestMapping("/")
 class TestController {
 	@GetMapping("test")
-	fun test() = "hello there"
+	fun test() = "HELLO FROM KOTLIN SPRING API PACKAGED IN DOCKER HOSTED ON GKE!"
 }
